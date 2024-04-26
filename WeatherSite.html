@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #0c76b3; /* Blue background */
+            color: white; /* White text */
+            font-size: 20px; /* Bigger text */
+            padding: 20px; /* Add padding for content */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure that the content takes at least the full height of the viewport */
+            position: relative; /* Position for absolute elements */
+        }
+        #weather {
+            margin-top: auto; /* Move the weather section to the bottom */
+        }
+        .profile {
+            position: absolute; /* Position the profile */
+            top: 20px; /* Adjust top position */
+            right: 20px; /* Adjust right position */
+        }
+        .bottom-image {
+            margin-top: 50px; /* Adjust top margin */
+        }
+        .profile img {
+            width: 60px; /* Set the width of the profile image */
+            height: 60px; /* Set the height of the profile image */
+            border-radius: 90%; /* Make the profile image round */
+        }
+        .bottom-image img {
+            width: 30%; /* Set the image width */
+        }
+        .input-field {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Default_avatar_profile.jpg">
+        <p>Username</p>
+    </div>
+    <h1>Hi, how are you doing?</h1>
+    <div id="weather">
+        <h2>Weather Conditions for Jackson, Mississippi</h2>
+        <form id="weather-form">
+            <div class="input-field">
+                <label for="temperature">Temperature:</label>
+                <input type="text" id="temperature" name="temperature" placeholder="Enter temperature">
+            </div>
+            <div class="input-field">
+                <label for="humidity">Humidity:</label>
+                <input type="text" id="humidity" name="humidity" placeholder="Enter humidity">
+            </div>
+            <div class="input-field">
+                <label for="wind-speed">Wind Speed:</label>
+                <input type="text" id="wind-speed" name="wind-speed" placeholder="Enter wind speed">
+            </div>
+            <div class="input-field">
+                <label for="conditions">Conditions:</label>
+                <input type="text" id="conditions" name="conditions" placeholder="Enter conditions">
+            </div>
+            <button type="submit">Update Weather</button>
+        </form>
+        <div id="weather-info">
+            <p id="temperature-info"></p>
+            <p id="humidity-info"></p>
+            <p id="wind-speed-info"></p>
+            <p id="conditions-info"></p>
+        </div>
+    </div>
+    <div class="bottom-image">
+        <img src="https://www.collegiateluxe.com/cdn/shop/collections/JSU-Official-Logo.png?v=1650199563" alt="Bottom Image">
+    </div>
+
+    <script>
+        // Function to update weather information based on user input
+        function updateWeather(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get user input values
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            const humidity = parseFloat(document.getElementById('humidity').value);
+            const windSpeed = parseFloat(document.getElementById('wind-speed').value);
+            const conditions = document.getElementById('conditions').value;
+
+            // Update weather information in the HTML
+            document.getElementById('temperature-info').textContent = `Temperature: ${temperature}°F`;
+            document.getElementById('humidity-info').textContent = `Humidity: ${humidity}%`;
+            document.getElementById('wind-speed-info').textContent = `Wind Speed: ${windSpeed} mph`;
+            document.getElementById('conditions-info').textContent = `Conditions: ${conditions}`;
+
+            // Check weather conditions and display appropriate message
+            if (conditions.includes("rain")) {
+                alert("Don't forget to bring an umbrella!");
+            }
+            if (conditions.includes("clear")) {
+                alert("Have a great day!");
+            }
+            if (conditions.includes("very sunny")) {
+                alert("Bring some extra water!");
+            }
+            if (conditions.includes("snow")) {
+                alert("Better grab a coat!");
+            }
+            if (windSpeed > 30) {
+                alert("It's very windy, take cover!");
+            }
+        }
+
+        // Add event listener to the weather form
+        document.getElementById('weather-form').addEventListener('submit', updateWeather);
+    </script>
+</body>
+</html>
