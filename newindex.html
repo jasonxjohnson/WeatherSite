@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Weather Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #0c76b3; /* Blue background */
+            color: white; /* White text */
+            font-size: 20px; /* Bigger text */
+            padding: 20px; /* Add padding for content */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure that the content takes at least the full height of the viewport */
+            position: relative; /* Position for absolute elements */
+        }
+        #weather {
+            margin-top: auto; /* Move the weather section to the bottom */
+        }
+        .profile {
+            position: absolute; /* Position the profile */
+            top: 20px; /* Adjust top position */
+            right: 20px; /* Adjust right position */
+        }
+        .bottom-image {
+            margin-top: 10px; /* Adjust top margin */
+        }
+        .profile img {
+            width: 60px; /* Set the width of the profile image */
+            height: 60px; /* Set the height of the profile image */
+            border-radius: 90%; /* Make the profile image round */
+        }
+        .bottom-image img {
+            width: 20%; /* Set the image width smaller */
+        }
+        .input-field {
+            margin-bottom: 10px;
+        }
+        /* Styles for tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tablink {
+            background-color: #030681;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .tablink:hover {
+            background-color: #45a049;
+        }
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .tabcontent iframe {
+            width: 90%; /* Set width to 100% to make it responsive */
+            height: 500px; /* Adjust height as needed */
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Default_avatar_profile.jpg">
+        <p>Username</p>
+    </div>
+    <h1>Hi, how are you doing?</h1>
+    <div id="weather">
+        <h2>Weather Conditions for Jackson, Mississippi</h2>
+        <form id="weather-form">
+            <div class="input-field">
+                <label for="temperature">Temperature:</label>
+                <input type="text" id="temperature" name="temperature" placeholder="Enter temperature">
+            </div>
+            <div class="input-field">
+                <label for="humidity">Humidity:</label>
+                <input type="text" id="humidity" name="humidity" placeholder="Enter humidity">
+            </div>
+            <div class="input-field">
+                <label for="wind-speed">Wind Speed:</label>
+                <input type="text" id="wind-speed" name="wind-speed" placeholder="Enter wind speed">
+            </div>
+            <div class="input-field">
+                <label for="conditions">Conditions:</label>
+                <input type="text" id="conditions" name="conditions" placeholder="Enter conditions">
+            </div>
+            <button type="submit">Update Weather</button>
+        </form>
+        <div id="weather-info">
+            <p id="temperature-info"></p>
+            <p id="humidity-info"></p>
+            <p id="wind-speed-info"></p>
+            <p id="conditions-info"></p>
+        </div>
+    </div>
+    <!-- Tab content from the first set -->
+    <div class="tabs">
+        <button class="tablink" onclick="openTab('tab1')">Fire Safety Video</button>
+        <button class="tablink" onclick="openTab('tab2')">Tornado Safety Video</button>
+        <button class="tablink" onclick="openTab('tab3')">Earthquake Safety Video</button>
+    </div>
+    <div id="tab1" class="tabcontent">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ReL-DM9xhpI?si=tZlgnAxIxaYA6C30" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div id="tab2" class="tabcontent">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/_5TiTfuvotc?si=xOg0KdJthVcK5sh2" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div id="tab3" class="tabcontent">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/BLEPakj1YTY?si=jl4ShBIEFAHrZM8D" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="credits small-image">
+        <img src="https://www.collegiateluxe.com/cdn/shop/collections/JSU-Official-Logo.png?v=1650199563" alt="Credits Image">
+        <p>Website created by [Jason Johnson]</p>
+    </div>
+    <script>
+        function openTab(tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            document.getElementById(tabName).style.display = "block";
+        }
+
+        // Function to update weather information based on user input
+        function updateWeather(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            // Get user input values
+            const temperature = parseFloat(document.getElementById('temperature').value);
+            const humidity = parseFloat(document.getElementById('humidity').value);
+            const windSpeed = parseFloat(document.getElementById('wind-speed').value);
+            const conditions = document.getElementById('conditions').value;
+
+            // Update weather information in the HTML
+            document.getElementById('temperature-info').textContent = `Temperature: ${temperature}°F`;
+            document.getElementById('humidity-info').textContent = `Humidity: ${humidity}%`;
+            document.getElementById('wind-speed-info').textContent = `Wind Speed: ${windSpeed} mph`;
+            document.getElementById('conditions-info').textContent = `Conditions: ${conditions}`;
+
+            // Check weather conditions and display appropriate message
+            if (conditions.includes("rain")) {
+                alert("Don't forget to bring an umbrella!");
+            }
+            if (conditions.includes("clear")) {
+                alert("Have a great day!");
+            }
+            if (conditions.includes("very sunny")) {
+                alert("Bring some extra water!");
+            }
+            if (conditions.includes("snow")) {
+                alert("Better grab a coat!");
+            }
+            if (windSpeed > 30) {
+                alert("It's very windy, take cover!");
+            }
+        }
+
+        // Add event listener to the weather form
+        document.getElementById('weather-form').addEventListener('submit', updateWeather);
+    </script>
+</body>
+</html>
